@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jayden Htwe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="name">Jayden Htwe</h1>
+    <div class="bio" id="bio">
+      <p>Hi! I'm a first-year Undergraduate student studying Electrical Engineering at Johns Hopkins University.</p>
+      <p>I'm interested in electronics and circuit design as well as pure mathematics. I enjoy travelling, photography, and rock climbing.</p>
+    </div>
+  </header>
+
+  <nav role="tablist" aria-label="Sections" class="no-anim">
+    <span class="pill" aria-hidden="true"></span>
+    <button role="tab" id="tab-projects" aria-controls="projects" aria-selected="true">Projects</button>
+    <button role="tab" id="tab-experience" aria-controls="experience" aria-selected="false">Experience</button>
+    <button role="tab" id="tab-about" aria-controls="about" aria-selected="false">About</button>
+  </nav>
+
+  <main>
+    <!-- PROJECTS: copy an .item block to add one -->
+    <section class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects">
+      <div class="filters" id="filters" role="group" aria-label="Filter projects by topic"></div>
+      <!-- data-project must match a <template id="p-..."> below.
+           For a preview, replace <div class="ph">…</div> in .preview with <img src="…" alt="…"> -->
+      <article class="item project" data-project="hydrogel-eab" tabindex="0" role="button" aria-label="Open Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins">
+        <h3>Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins<span class="arrow" aria-hidden="true">→</span></h3>
+        <span class="meta">2024</span>
+        <p>A poster presentation on electrochemical aptamer-based sensors and various iterations of hydrogels used to mitigate protein fouling.</p>
+        <figure class="preview"><img data-img="poster" alt="Research poster preview"></figure>
+        <div class="tags"><span>Research</span><span>Biosensors</span><span>Electrochemistry</span></div>
+      </article>
+    </section>
+
+    <!-- PROJECT DETAIL VIEW (filled from the templates below) -->
+    <section class="detail" id="detail" hidden>
+      <button class="back" id="back" type="button">← All projects</button>
+      <div id="detail-body"></div>
+    </section>
+
+    <!-- PROJECT DETAIL PAGES: one template per project -->
+    <template id="p-hydrogel-eab">
+      <p class="label">Research poster · Summer 2024</p>
+      <h2>Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins</h2>
+      <p class="lede">A poster presentation on electrochemical aptamer-based sensors and various iterations of hydrogels used to mitigate protein fouling.</p>
+      <p class="byline">Jayden Htwe, Erin Demek, Netzahualcóyotl Arroyo Currás · Netz Lab, Johns Hopkins University · Summer Academic Research Experience (SARE)</p>
+      <div class="tags"><span>Research</span><span>Biosensors</span><span>Electrochemistry</span><span>Hydrogels</span></div>
+      <figure class="shot-img" role="button" tabindex="0" data-lightbox="poster" data-caption="Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins" aria-label="View the full poster">
+        <img data-img="poster" alt="Research poster: Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins">
+        <figcaption>Click to view the full poster</figcaption>
+      </figure>
+      <p class="label">The problem</p>
+      <p>Electrochemical Aptamer-Based sensors are biosensors that use aptamers to identify targets, bind to them, then transfer electrons between it and the electrode surface which is called the "signal output". However, during long intervals of scanning, there is accumulating protein build up (aka protein fouling) which hinders the ability for the aptamer to bind to its target and therefore diminishes the signal output.</p>
+      <p class="label">What I did</p>
+      <ul>
+        <li>Compared the signal response in Phosphate Buffered Saline (PBS) and Bovine Serum Albumin (BSA) to demonstrate the impact of protein fouling.</li>
+        <li>Applied various batches of Agarose and Alginate in varying concentrations onto electrodes.</li>
+        <li>Tested Vanillin as an additive and possible crosslinker for the Agarose-Alginate hydrogels.</li>
+      </ul>
+      <p class="label">What I found</p>
+      <p>The data suggest that there is a possibility that Vanillin could be crosslinking the hydrogel through a Hydrogen bond resulting in a higher signal output.</p>
+    </template>
+
+
+
+    <!-- EXPERIENCE TIMELINE: newest first. Copy an .tl block to add one.
+         For a photo, replace <div class="ph">…</div> with <img src="…" alt="…">.
+         Add class "current" to an entry that is still ongoing. -->
+    <section class="panel" id="experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
+      <p class="label">Experience</p>
+
+      <article class="tl current">
+        <div class="tl-body">
+          <p class="tl-date">Aug 2026 – Present</p>
+          <h3>B.S. in Electrical Engineering</h3>
+          <p class="tl-org">Johns Hopkins University</p>
+        </div>
+        <figure class="tl-img logo"><img data-img="jhu" alt="Johns Hopkins University"></figure>
+      </article>
+
+      <article class="tl">
+        <div class="tl-body">
+          <p class="tl-date">Jun 2024 – Aug 2024</p>
+          <h3>Research Intern</h3>
+          <p class="tl-org">Netz Lab · Baltimore, MD</p>
+          <p>Conducted research with the Netz Lab (now at UNC Chapel Hill) to better understand affinity-based receptors and forward development for implantable biosensors.</p>
+        </div>
+        <figure class="tl-img logo"><img data-img="netz" alt="Netz Lab, Johns Hopkins University"></figure>
+      </article>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="panel prose" id="about" role="tabpanel" aria-labelledby="tab-about" hidden>
+      <p class="label">About</p>
+      <p>I make stuff in Blender</p>
+      <p>and I play Resident Evil</p>
+      <p class="label section-gap">Skills</p>
+      
+      <div class="skill-grid">
+        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/python.png" alt=""></span><span class="skill-text"><span class="skill-name">Python</span><span class="skill-kind">Language</span></span></div>
+        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/java.png" alt=""></span><span class="skill-text"><span class="skill-name">Java</span><span class="skill-kind">Language</span></span></div>
+        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/matlab.png" alt=""></span><span class="skill-text"><span class="skill-name">MATLAB</span><span class="skill-kind">Language</span></span></div>
+        <div class="skill cert" role="button" tabindex="0" data-lightbox="cert-autocad" data-caption="Autodesk Certified User: AutoCAD · February 24, 2026" aria-label="View AutoCAD certification"><span class="glyph has-img" aria-hidden="true"><img src="images/about/autocad.png" alt=""></span><span class="skill-text"><span class="skill-name">AutoCAD</span><span class="skill-kind">CAD · <span class="cert-chip">Certified</span></span></span></div>
+        <div class="skill cert" role="button" tabindex="0" data-lightbox="cert-inventor" data-caption="Autodesk Certified User: Inventor · March 14, 2025" aria-label="View Autodesk Inventor certification"><span class="glyph has-img" aria-hidden="true"><img src="images/about/inventor.png" alt=""></span><span class="skill-text"><span class="skill-name">Autodesk Inventor</span><span class="skill-kind">3D CAD · <span class="cert-chip">Certified</span></span></span></div>
+        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/blender.png" alt=""></span><span class="skill-text"><span class="skill-name">Blender</span><span class="skill-kind">3D modeling</span></span></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lb-inner">
+      <button class="lb-close" id="lb-close" type="button" aria-label="Close">×</button>
+      <img id="lb-img" alt="">
+      <p class="lb-cap" id="lb-cap"></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="links">
+      <a href="https://github.com/qvsrr" target="_blank" rel="noopener" id="gh">
+        <img class="gh" src="images/github.png" width="20" height="20" alt="">
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/jaydenhtwe/" target="_blank" rel="noopener" id="li">
+        <img class="li-icon" src="images/linkedin.png" width="20" height="20" alt="">
+        LinkedIn
+      </a>
+      <a href="https://open.spotify.com/user/isl62novs6fvm3y0r6a077htp" target="_blank" rel="noopener" id="sp">
+        <img class="sp-icon" src="images/spotify.png" alt="">
+        Spotify
+      </a>
+      <span class="links" style="gap:8px">
+        <a href="mailto:jhtwe1@jh.edu" id="mail" aria-label="Email">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3h13A1.5 1.5 0 0116 4.5v7a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 010 11.5v-7A1.5 1.5 0 011.5 3zm.3 1.5L8 8.6l6.2-4.1H1.8zM14.5 6L8 10.3 1.5 6v5.5h13V6z"/></svg>
+        </a>
+        <span class="email" id="email-text">jhtwe1@jh.edu</span>
+        <button class="copy" id="copy" type="button">Copy</button>
+      </span>
+    </div>
+    <div class="foot-right">
+      <span class="fine">© <span id="yr">2026</span></span>
+    </div>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
