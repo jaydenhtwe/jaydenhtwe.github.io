@@ -19,35 +19,43 @@
     </div>
   </header>
 
+  <!-- SECTIONS -->
   <nav role="tablist" aria-label="Sections" class="no-anim">
     <span class="pill" aria-hidden="true"></span>
     <button role="tab" id="tab-projects" aria-controls="projects" aria-selected="true">Projects</button>
     <button role="tab" id="tab-experience" aria-controls="experience" aria-selected="false">Experience</button>
+    <button role="tab" id="tab-photography" aria-controls="photography" aria-selected="false">Photography</button>
     <button role="tab" id="tab-about" aria-controls="about" aria-selected="false">About</button>
   </nav>
 
+  <!-- PROJECTS -->
   <main>
-    <!-- PROJECTS: copy an .item block to add one -->
     <section class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects">
       <div class="filters" id="filters" role="group" aria-label="Filter projects by topic"></div>
-      <!-- data-project must match a <template id="p-..."> below.
-           For a preview, replace <div class="ph">…</div> in .preview with <img src="…" alt="…"> -->
       <article class="item project" data-project="hydrogel-eab" tabindex="0" role="button" aria-label="Open Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins">
         <h3>Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins<span class="arrow" aria-hidden="true">→</span></h3>
         <span class="meta">2024</span>
         <p>A poster presentation on electrochemical aptamer-based sensors and various iterations of hydrogels used to mitigate protein fouling.</p>
         <figure class="preview"><img data-img="poster" alt="Research poster preview"></figure>
-        <div class="tags"><span>Research</span><span>Biosensors</span><span>Electrochemistry</span></div>
+        <div class="tags">
+          <span>
+            Research
+          </span>
+          <span>
+            Biosensors
+          </span>
+          <span>
+            Electrochemistry
+          </span>
+        </div>
       </article>
     </section>
 
-    <!-- PROJECT DETAIL VIEW (filled from the templates below) -->
     <section class="detail" id="detail" hidden>
       <button class="back" id="back" type="button">← All projects</button>
       <div id="detail-body"></div>
     </section>
 
-    <!-- PROJECT DETAIL PAGES: one template per project -->
     <template id="p-hydrogel-eab">
       <p class="label">Research poster · Summer 2024</p>
       <h2>Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins</h2>
@@ -70,17 +78,13 @@
       <p>The data suggest that there is a possibility that Vanillin could be crosslinking the hydrogel through a Hydrogen bond resulting in a higher signal output.</p>
     </template>
 
-
-
-    <!-- EXPERIENCE TIMELINE: newest first. Copy an .tl block to add one.
-         For a photo, replace <div class="ph">…</div> with <img src="…" alt="…">.
-         Add class "current" to an entry that is still ongoing. -->
+    <!-- EXPERIENCES -->
     <section class="panel" id="experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
       <p class="label">Experience</p>
 
       <article class="tl current">
         <div class="tl-body">
-          <p class="tl-date">Aug 2026 – Present</p>
+          <p class="tl-date">Aug 2026 · Present</p>
           <h3>B.S. in Electrical Engineering</h3>
           <p class="tl-org">Johns Hopkins University</p>
         </div>
@@ -89,13 +93,27 @@
 
       <article class="tl">
         <div class="tl-body">
-          <p class="tl-date">Jun 2024 – Aug 2024</p>
+          <p class="tl-date">Jun 2024 · Aug 2024</p>
           <h3>Research Intern</h3>
           <p class="tl-org">Netz Lab · Baltimore, MD</p>
           <p>Conducted research with the Netz Lab (now at UNC Chapel Hill) to better understand affinity-based receptors and forward development for implantable biosensors.</p>
         </div>
         <figure class="tl-img logo"><img data-img="netz" alt="Netz Lab, Johns Hopkins University"></figure>
       </article>
+    </section>
+
+    <section class="panel" id="photography" role="tabpanel" aria-labelledby="tab-photography" hidden>
+      <p class="label">Photography</p>
+      <div class="gallery">
+        <figure class="photo folder" tabindex="0" role="button" aria-label="Open album: Kapadokya, Türkiye · 2026">
+          <img src="images/photography/turkiye/IMG_3592.JPG" alt="Kapadokya, Türkiye · 2026" loading="lazy">
+          <figcaption>Kapadokya, Türkiye · 2026</figcaption>
+          <div class="folder-photos">
+            <img src="images/photography/turkiye/IMG_3592.JPG" alt="Kapadokya, Türkiye" loading="lazy">
+            <img src="images/photography/turkiye/IMG_3593.JPG" alt="Kapadokya, Türkiye" loading="lazy">
+          </div>
+        </figure>
+      </div>
     </section>
 
     <!-- ABOUT -->
@@ -120,6 +138,9 @@
       <button class="lb-close" id="lb-close" type="button" aria-label="Close">×</button>
       <img id="lb-img" alt="">
       <p class="lb-cap" id="lb-cap"></p>
+      <button class="lb-nav lb-prev" id="lb-prev" type="button" aria-label="Previous photo" hidden>‹</button>
+      <button class="lb-nav lb-next" id="lb-next" type="button" aria-label="Next photo" hidden>›</button>
+      <p class="lb-count" id="lb-count" hidden></p>
     </div>
   </div>
 
