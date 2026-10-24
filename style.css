@@ -290,3 +290,18 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
   background: rgba(255,255,255,.92); color: var(--ink);
 }
 .folder-badge svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+
+/* Album hover highlight */
+.photo.folder {
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease;
+}
+.photo.folder:hover,
+.photo.folder:focus-visible {
+  transform: translate(-2px, -5px);
+}
+.photo.folder:hover {
+  box-shadow:
+    7px 7px 0 -1px var(--bg), 7px 7px 0 0 var(--accent),
+    14px 14px 0 -1px var(--bg), 14px 14px 0 0 var(--line);
+}
+.photo.folder:hover > img { filter: brightness(1.06); }
