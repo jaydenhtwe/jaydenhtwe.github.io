@@ -3,6 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var d = document.documentElement, m = 'light', t = 'indigo';
+      try { m = localStorage.getItem('mode') || m; t = localStorage.getItem('theme') || t; } catch (e) {}
+      d.dataset.mode = m; d.dataset.theme = t;
+    })();
+  </script>
   <title>Jayden Htwe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +19,23 @@
 <body>
 <div class="wrap">
   <header>
+  <div class="title-row">
     <h1 id="name">Jayden Htwe</h1>
+    <div class="theme">
+      <button class="theme-btn" id="theme-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu" aria-label="Appearance settings">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
+      </button>
+      <div class="theme-menu" id="theme-menu" role="dialog" aria-label="Appearance" hidden>
+        <p class="label">Mode</p>
+        <div class="seg" role="group" aria-label="Mode">
+          <button type="button" data-mode="light" aria-pressed="false">Light</button>
+          <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        </div>
+        <p class="label">Theme</p>
+        <div class="swatches" id="swatches" role="group" aria-label="Color theme"></div>
+      </div>
+    </div>
+  </div>
     <div class="bio" id="bio">
       <p>Hi! I'm a first-year Undergraduate student studying Electrical Engineering at Johns Hopkins University.</p>
       <p>I'm interested in electronics and circuit design as well as pure mathematics. I enjoy traveling, photography, and rock climbing.</p>
@@ -85,8 +108,9 @@
       <article class="tl current">
         <div class="tl-body">
           <p class="tl-date">Aug 2026 · Present</p>
-          <h3>B.S. in Electrical Engineering</h3>
+          <h3>B.S. in Electrical Engineering, Minor in Mathematics</h3>
           <p class="tl-org">Johns Hopkins University</p>
+          <p></p>
         </div>
         <figure class="tl-img logo"><img data-img="jhu" alt="Johns Hopkins University"></figure>
       </article>
@@ -118,8 +142,8 @@
             <img src="images/photography/turkiye/IMG_3523.JPG" alt="Sultanahmet Camii, Istanbul" loading="lazy">
             <img src="images/photography/turkiye/IMG_3530.JPG" alt="Kapalıçarşı (Grand Bazaar)" loading="lazy">
             <img src="images/photography/turkiye/IMG_3592.JPG" alt="Kapadokya, Nevşehir" loading="lazy">
-            <!img src="images/photography/turkiye/" alt="" loading="lazy">
-            <!img src="images/photography/turkiye/" alt="" loading="lazy">
+            <!--img src="images/photography/turkiye/" alt="" loading="lazy"-->
+            <!--img src="images/photography/turkiye/" alt="" loading="lazy"-->
           </div>
         </figure>
         <figure class="photo folder" tabindex="0" role="button" aria-label="Open album: Italy · April 2026">
@@ -135,18 +159,21 @@
             <img src="images/photography/italy/IMG_2019.jpg" alt="Basilica di Santa Maria ad Martyres (The Pantheon), Roma" loading="lazy">
             <img src="images/photography/italy/IMG_2062.jpg" alt="Scuola di Atene by Raphael" loading="lazy">
             <img src="images/photography/italy/IMG_2067.jpg" alt="Capella Sistina, Città del Vaticano" loading="lazy">
-            <!img src="images/photography/italy/" alt="" loading="lazy">
+            <!--img src="images/photography/italy/" alt="" loading="lazy"-->
           </div>
         </figure>
-        <!--
+        
         <figure class="photo folder" tabindex="0" role="button" aria-label="Open album: Switzerland · July 2023">
           <img src="" alt="Switzerland · July 2023" loading="lazy">
           <figcaption>Switzerland · July 2023</figcaption>
           <div class="folder-photos">
-
+            <img src="images/photography/switzerland" alt="" loading="lazy">
+            <img src="images/photography/switzerland" alt="" loading="lazy">
+            <img src="images/photography/switzerland" alt="" loading="lazy">
+            <img src="images/photography/switzerland" alt="" loading="lazy">
+            <img src="images/photography/switzerland" alt="" loading="lazy">
           </div>
         </figure>
-      -->
       </div>
     </section>
 
@@ -160,7 +187,7 @@
         <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/python.png" alt=""></span><span class="skill-text"><span class="skill-name">Python</span><span class="skill-kind">Language</span></span></div>
         <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/java.png" alt=""></span><span class="skill-text"><span class="skill-name">Java</span><span class="skill-kind">Language</span></span></div>
         <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/matlab.png" alt=""></span><span class="skill-text"><span class="skill-name">MATLAB</span><span class="skill-kind">Language</span></span></div>
-        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/html.jpg" alt=""></span><span class="skill-text"><span class="skill-name">HTML</span><span class="skill-kind">Language</span></div>
+        <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/html.jpg" alt=""></span><span class="skill-text"><span class="skill-name">HTML</span><span class="skill-kind">Language</span></span></div>
         <div class="skill cert" role="button" tabindex="0" data-lightbox="cert-autocad" data-caption="Autodesk Certified User: AutoCAD · February 24, 2026" aria-label="View AutoCAD certification"><span class="glyph has-img" aria-hidden="true"><img src="images/about/autocad.png" alt=""></span><span class="skill-text"><span class="skill-name">AutoCAD</span><span class="skill-kind">CAD · <span class="cert-chip">Certified</span></span></span></div>
         <div class="skill cert" role="button" tabindex="0" data-lightbox="cert-inventor" data-caption="Autodesk Certified User: Inventor · March 14, 2025" aria-label="View Autodesk Inventor certification"><span class="glyph has-img" aria-hidden="true"><img src="images/about/inventor.png" alt=""></span><span class="skill-text"><span class="skill-name">Autodesk Inventor</span><span class="skill-kind">3D CAD · <span class="cert-chip">Certified</span></span></span></div>
         <div class="skill"><span class="glyph has-img" aria-hidden="true"><img src="images/about/blender.png" alt=""></span><span class="skill-text"><span class="skill-name">Blender</span><span class="skill-kind">3D modeling</span></span></div>
@@ -179,9 +206,10 @@
     </div>
   </div>
 
+  <!-- bottom linked buttons -->
   <footer>
     <div class="links">
-      <a href="https://github.com/qvsrr" target="_blank" rel="noopener" id="gh">
+      <a href="https://github.com/jaydenhtwe" target="_blank" rel="noopener" id="gh">
         <img class="gh" src="images/github.png" width="20" height="20" alt="">
         GitHub
       </a>

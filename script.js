@@ -265,4 +265,53 @@
     } else { fallback(); }
   });
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var THEMES = [
+    { id: 'indigo', name: 'Indigo', swatch: '#1f2f6b' },
+    { id: 'forest', name: 'Forest', swatch: '#1f5f4a' },
+    { id: 'rose',   name: 'Rose',   swatch: '#9b2c4f' },
+    { id: 'amber',  name: 'Amber',  swatch: '#8a5a00' },
+    { id: 'plum',   name: 'Plum',   swatch: '#5b2a86' }
+  ];
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('theme-btn');
+    var menu = document.getElementById('theme-menu');
+    var box = document.getElementById('swatches');
+    var modeBtns = Array.prototype.slice.call(menu.querySelectorAll('[data-mode]'));
+    var mode = root.dataset.mode || 'light';
+    var theme = root.dataset.theme || 'indigo';
+    var swatchBtns = [];
+
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function apply() {
+      root.dataset.mode = mode; root.dataset.theme = theme;
+      modeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'); });
+      swatchBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.id === theme ? 'true' : 'false'); });
+    }
+    THEMES.forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'swatch'; b.dataset.id = t.id;
+      b.style.background = t.swatch; b.title = t.name; b.setAttribute('aria-label', t.name + ' theme');
+      b.addEventListener('click', function () { theme = t.id; save('theme', theme); apply(); });
+      box.appendChild(b); swatchBtns.push(b);
+    });
+    modeBtns.forEach(function (b) {
+      b.addEventListener('click', function () { mode = b.dataset.mode; save('mode', mode); apply(); });
+    });
+
+    function setOpen(open) {
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(menu.hidden); });
+    menu.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', function () { if (!menu.hidden) setOpen(false); });
+    // capture phase so Escape closes the menu without also closing an open project
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) { e.stopPropagation(); setOpen(false); btn.focus(); }
+    }, true);
+
+    apply();
+  })();
 })();
