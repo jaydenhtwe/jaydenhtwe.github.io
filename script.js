@@ -3,6 +3,7 @@
   var IMG = {
     jhu: 'images/experiences/jhu.png',
     netz: 'images/experiences/netz.png',
+    vex: 'images/experiences/vexrobotics.png',
     poster: 'images/projects/poster.jpg',
     'cert-autocad': 'images/about/cert-autocad.jpg',
     'cert-inventor': 'images/about/cert-inventor.jpg'
