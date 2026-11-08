@@ -149,7 +149,7 @@
     el.classList.add('enter');
   }
 
-  // Project detail view
+  // project detail view
   var detail = document.getElementById('detail');
   var detailBody = document.getElementById('detail-body');
   var lastCard = null;
@@ -187,43 +187,108 @@
   });
   document.getElementById('back').addEventListener('click', closeProject);
 
-  // Project filters, built from each project's tags
+    // project search + tag filters
   (function () {
     var box = document.getElementById('filters');
+    var input = document.getElementById('search-input');
+    var clear = document.getElementById('search-clear');
     var cards = Array.prototype.slice.call(document.querySelectorAll('.item.project'));
     var counts = {}, order = [];
-    cards.forEach(function (c) {
-      Array.prototype.forEach.call(c.querySelectorAll('.tags span'), function (t) {
-        var k = t.textContent.trim();
+    var selected = []; // tags currently toggled on
+
+    // lowercase + strip accents so "Currás" matches "curras"
+    function norm(s) {
+      return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+
+    // per-project data: tags, plus searchable text (name + collaborators + tags)
+    var info = cards.map(function (c) {
+      var tags = Array.prototype.map.call(c.querySelectorAll('.tags span'), function (t) {
+        return t.textContent.trim();
+      });
+      tags.forEach(function (k) {
         if (!counts[k]) { counts[k] = 0; order.push(k); }
         counts[k]++;
       });
+      var h = c.querySelector('h3');
+      return {
+        el: c,
+        tags: tags,
+        text: norm((h ? h.textContent : '') + ' ' + (c.getAttribute('data-collab') || '') + ' ' + tags.join(' '))
+      };
     });
-    var lab = document.createElement('span'); lab.className = 'f-label'; lab.textContent = 'Filter'; box.appendChild(lab);
-    var buttons = [];
-    function make(text, key, n) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'filter'; b.setAttribute('aria-pressed', key === '' ? 'true' : 'false');
-      b.dataset.key = key; b.textContent = text;
-      if (n != null) { var s = document.createElement('span'); s.className = 'n'; s.textContent = n; b.appendChild(s); }
-      b.addEventListener('click', function () { apply(b.dataset.key === active ? '' : b.dataset.key); });
-      box.appendChild(b); buttons.push(b);
+
+    function query() { return norm(input.value); }
+    function isOn(k) { return selected.indexOf(k) !== -1; }
+
+    // unselected tags that match what's typed (all unselected tags when the bar is empty)
+    function suggestions(q) {
+      return order.filter(function (k) { return !isOn(k) && (!q || norm(k).indexOf(q) !== -1); });
     }
-    var active = '';
-    function apply(key) {
-      active = key;
-      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.key === key ? 'true' : 'false'); });
-      cards.forEach(function (c) {
-        var hit = false;
-        Array.prototype.forEach.call(c.querySelectorAll('.tags span'), function (t) {
-          var m = key !== '' && t.textContent.trim() === key;
-          t.classList.toggle('match', m); if (m) hit = true;
-        });
-        c.classList.toggle('dim', key !== '' && !hit);
+
+    function toggle(k) {
+      if (isOn(k)) selected.splice(selected.indexOf(k), 1); else selected.push(k);
+      input.value = '';
+      update();
+    }
+
+    // tag buttons: selected tags always show, plus matching suggestions while typing
+    function renderTags() {
+      var q = query();
+      var shown = order.filter(function (k) { return isOn(k) || !q || norm(k).indexOf(q) !== -1; });
+      box.innerHTML = '';
+      box.hidden = !shown.length;
+      if (!shown.length) return;
+      var lab = document.createElement('span');
+      lab.className = 'f-label'; lab.textContent = q ? 'Suggestions' : 'Tags';
+      box.appendChild(lab);
+      shown.forEach(function (k) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'filter'; b.dataset.key = k;
+        b.setAttribute('aria-pressed', isOn(k) ? 'true' : 'false');
+        b.textContent = k;
+        var s = document.createElement('span'); s.className = 'n'; s.textContent = counts[k]; b.appendChild(s);
+        b.addEventListener('click', function () { toggle(k); });
+        box.appendChild(b);
       });
     }
-    make('All', '', cards.length);
-    order.forEach(function (k) { make(k, k, counts[k]); });
+
+    // highlight / dim projects
+    function applyFilter() {
+      var q = query();
+      var words = q ? q.split(/\s+/) : [];
+      info.forEach(function (p) {
+        var tagsOk = selected.every(function (k) { return p.tags.indexOf(k) !== -1; });
+        var textOk = words.every(function (w) { return p.text.indexOf(w) !== -1; });
+        Array.prototype.forEach.call(p.el.querySelectorAll('.tags span'), function (t) {
+          t.classList.toggle('match', isOn(t.textContent.trim()));
+        });
+        p.el.classList.toggle('dim', (selected.length > 0 || words.length > 0) && !(tagsOk && textOk));
+      });
+    }
+
+    function update() {
+      clear.hidden = !input.value && !selected.length;
+      renderTags();
+      applyFilter();
+    }
+
+    function reset() { input.value = ''; selected = []; update(); }
+
+    input.addEventListener('input', update);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var q = query(), list = suggestions(q);
+        if (q && list.length) { e.preventDefault(); toggle(list[0]); }
+      } else if (e.key === 'Backspace' && !input.value && selected.length) {
+        selected.pop(); update();
+      } else if (e.key === 'Escape' && (input.value || selected.length)) {
+        reset();
+      }
+    });
+    clear.addEventListener('click', function () { reset(); input.focus(); });
+
+    update();
   })();
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;

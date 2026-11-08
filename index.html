@@ -54,8 +54,15 @@
   <!-- projects -->
   <main>
     <section class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects">
-      <div class="filters" id="filters" role="group" aria-label="Filter projects by topic"></div>
-      <article class="item project" data-project="hydrogel-eab" tabindex="0" role="button" aria-label="Open Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins">
+      <div class="search">
+        <div class="search-box">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M13 13l4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input id="search-input" type="text" placeholder="Search projects, collaborators, or tags…" autocomplete="off" spellcheck="false" aria-label="Search projects, collaborators, or tags">
+          <button class="search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>×</button>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter projects by topic"></div>
+      </div>
+      <article class="item project" data-project="hydrogel-eab" data-collab="Erin Demek, Netzahualcóyotl Arroyo Currás" tabindex="0" role="button" aria-label="Open Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins">
         <h3>Using Agarose-Alginate Hydrogels to Retain EAB Sensor Signals in the Presence of Proteins<span class="arrow" aria-hidden="true">→</span></h3>
         <span class="meta">2024</span>
         <p>A poster presentation on electrochemical aptamer-based sensors and various iterations of hydrogels used to mitigate protein fouling.</p>
