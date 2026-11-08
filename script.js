@@ -285,6 +285,11 @@
     var swatchBtns = [];
 
     function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function withFade(fn) {
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (document.startViewTransition && !reduce) document.startViewTransition(fn);
+      else fn();
+    }
     function apply() {
       root.dataset.mode = mode; root.dataset.theme = theme;
       modeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'); });
@@ -294,11 +299,11 @@
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'swatch'; b.dataset.id = t.id;
       b.style.background = t.swatch; b.title = t.name; b.setAttribute('aria-label', t.name + ' theme');
-      b.addEventListener('click', function () { theme = t.id; save('theme', theme); apply(); });
+      b.addEventListener('click', function () { withFade(function () { theme = t.id; save('theme', theme); apply(); }); });
       box.appendChild(b); swatchBtns.push(b);
     });
     modeBtns.forEach(function (b) {
-      b.addEventListener('click', function () { mode = b.dataset.mode; save('mode', mode); apply(); });
+      b.addEventListener('click', function () { withFade(function () { mode = b.dataset.mode; save('mode', mode); apply(); }); });
     });
 
     function setOpen(open) {

@@ -365,3 +365,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
   filter: invert(1);
   mix-blend-mode: screen;
 }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .5s;
+}
