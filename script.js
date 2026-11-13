@@ -258,7 +258,7 @@
       var q = query();
       var words = q ? q.split(/\s+/) : [];
       info.forEach(function (p) {
-        var tagsOk = selected.every(function (k) { return p.tags.indexOf(k) !== -1; });
+        var tagsOk = !selected.length || selected.some(function (k) { return p.tags.indexOf(k) !== -1; });
         var textOk = words.every(function (w) { return p.text.indexOf(w) !== -1; });
         Array.prototype.forEach.call(p.el.querySelectorAll('.tags span'), function (t) {
           t.classList.toggle('match', isOn(t.textContent.trim()));
