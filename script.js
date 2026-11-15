@@ -5,6 +5,7 @@
     netz: 'images/experiences/netz.png',
     vex: 'images/experiences/vexrobotics.png',
     poster: 'images/projects/poster.jpg',
+    dcevgp: 'images/experiences/dcevgp.jpg',
     'cert-autocad': 'images/about/cert-autocad.jpg',
     'cert-inventor': 'images/about/cert-inventor.jpg'
   };
