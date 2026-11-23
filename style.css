@@ -199,23 +199,6 @@ main { flex: 1; }
 @media (max-width: 700px) {
   .tl.life { grid-template-columns: minmax(0, 1fr); }
 }
-/* zig-zag timeline */
-@media (min-width: 861px) {
-  #life .tl.life {
-    width: 50%; box-sizing: border-box;
-    grid-template-columns: minmax(0, 1fr);
-    padding-left: 0; padding-right: 40px;
-  }
-  /* odd entries: left of the rail */
-  #life .tl.life:nth-of-type(odd)::before { left: auto; right: -1px; }
-  #life .tl.life:nth-of-type(odd)::after { left: auto; right: -7px; }
-  /* even entries: right of the rail */
-  #life .tl.life:nth-of-type(even) {
-    margin-left: 50%; padding-left: 40px; padding-right: 0;
-  }
-  #life .tl.life:nth-of-type(even)::before { left: -1px; }
-  #life .tl.life:nth-of-type(even)::after { left: -7px; }
-}
 
 .preview img { object-position: top center; }
 .byline { font-size: 0.9rem; color: var(--muted); }
