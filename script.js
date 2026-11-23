@@ -16,10 +16,11 @@
   }
   fillImages(document);
 
-  // Lightbox
+  // lightbox
   var lb = document.getElementById('lightbox');
   var lbImg = document.getElementById('lb-img');
   var lbCap = document.getElementById('lb-cap');
+  var lbVideo = document.getElementById('lb-video');
   var lbReturn = null;
   function openLightbox(key, caption, from) {
     if (!IMG[key]) return;
@@ -32,6 +33,8 @@
   }
   function closeLightbox() {
     lb.hidden = true;
+    lbVideo.pause(); lbVideo.removeAttribute('src'); lbVideo.load();
+    lbVideo.hidden = true; lbImg.hidden = false; // so photos and certs still show later
     if (lbReturn) lbReturn.focus();
   }
   document.getElementById('lb-close').addEventListener('click', closeLightbox);
@@ -68,7 +71,15 @@
   function showItem(i) {
     setIndex = (i + set.length) % set.length;
     var it = set[setIndex];
-    lbImg.src = it.src; lbImg.alt = it.caption;
+    lbImg.hidden = !!it.video;
+    lbVideo.hidden = !it.video;
+    if (it.video) {
+      lbVideo.src = it.src;
+      lbVideo.play().catch(function () {});
+    } else {
+      lbVideo.pause(); lbVideo.removeAttribute('src'); lbVideo.load();
+      lbImg.src = it.src; lbImg.alt = it.caption;
+    }
     lbCap.textContent = it.caption;
     lbCount.textContent = (setName ? setName + ' · ' : '') + (setIndex + 1) + ' / ' + set.length;
   }
@@ -109,8 +120,8 @@
   lbNext.addEventListener('click', function () { showItem(setIndex + 1); });
   document.addEventListener('keydown', function (e) {
     if (lb.hidden || lbPrev.hidden) return;
-    if (e.key === 'ArrowLeft') showItem(setIndex - 1);
-    if (e.key === 'ArrowRight') showItem(setIndex + 1);
+    if (e.key === 'ArrowLeft') { e.preventDefault(); showItem(setIndex - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); showItem(setIndex + 1); }
   });
   var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
   var nav = document.querySelector('nav');
@@ -126,6 +137,32 @@
     }
     im.addEventListener('click', open);
     im.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
+  // life timeline: multi-video entries become one clickable tile
+  Array.prototype.forEach.call(document.querySelectorAll('.life-media.multi'), function (box) {
+    var vids = Array.prototype.slice.call(box.querySelectorAll('video'));
+    var title = box.closest('.tl').querySelector('h3').textContent;
+    vids.forEach(function (v) { v.controls = false; });
+    box.tabIndex = 0; box.setAttribute('role', 'button');
+    box.setAttribute('aria-label', 'Open ' + vids.length + ' videos: ' + title);
+
+    var badge = document.createElement('span');
+    badge.className = 'folder-badge'; badge.setAttribute('aria-hidden', 'true');
+    badge.textContent = vids.length + ' videos';
+    box.appendChild(badge);
+
+    function open() {
+      var items = vids.map(function (v, i) {
+        return { src: v.querySelector('source').getAttribute('src'), video: true,
+                 caption: title + ' (' + (i + 1) + '/' + vids.length + ')' };
+      });
+      openSet(items, 0, '', box);
+    }
+    box.addEventListener('click', open);
+    box.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
     });
   });
