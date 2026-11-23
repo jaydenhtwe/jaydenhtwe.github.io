@@ -117,6 +117,19 @@
   var pill = nav.querySelector('.pill');
   var current = -1;
 
+  // life timeline: click a photo to open it (and its siblings in the same entry) in the lightbox
+  Array.prototype.forEach.call(document.querySelectorAll('.life-media img'), function (im) {
+    im.tabIndex = 0; im.setAttribute('role', 'button');
+    function open() {
+      var group = Array.prototype.slice.call(im.closest('.life-media').querySelectorAll('img'));
+      openSet(group.map(function (g) { return itemFromImg(g); }), group.indexOf(im), '', im);
+    }
+    im.addEventListener('click', open);
+    im.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+
   function movePill() {
     var t = tabs[current]; if (!t) return;
     pill.style.width = t.offsetWidth + 'px';

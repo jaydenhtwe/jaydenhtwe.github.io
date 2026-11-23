@@ -1,4 +1,4 @@
-/* Base reset */
+/* base reset */
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; }
 img { max-width: 100%; }
@@ -150,7 +150,7 @@ main { flex: 1; }
 .detail-links a:hover { background: var(--accent); color: var(--bg); }
 .detail-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-/* Experience timeline */
+/* experience timeline */
 .tl {
   position: relative;
   display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 12px 24px;
@@ -182,6 +182,39 @@ main { flex: 1; }
 @media (max-width: 560px) {
   .tl { grid-template-columns: minmax(0, 1fr); padding-left: 30px; }
   .tl-img { max-width: 320px; }
+}
+
+/* life timeline (builds on .tl) */
+.tl.life { grid-template-columns: minmax(0, 1fr) minmax(0, 340px); }
+.life-media { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.life-media.multi { display: grid; grid-template-columns: 1fr 1fr; }
+.life-media img, .life-media video {
+  display: block; width: 100%; height: auto; box-sizing: border-box;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--accent-soft);
+}
+.life-media.multi img { height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.life-media img { cursor: zoom-in; transition: filter .2s; }
+.life-media img:hover { filter: brightness(1.05); }
+.life-media img:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 700px) {
+  .tl.life { grid-template-columns: minmax(0, 1fr); }
+}
+/* zig-zag timeline */
+@media (min-width: 861px) {
+  #life .tl.life {
+    width: 50%; box-sizing: border-box;
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 0; padding-right: 40px;
+  }
+  /* odd entries: left of the rail */
+  #life .tl.life:nth-of-type(odd)::before { left: auto; right: -1px; }
+  #life .tl.life:nth-of-type(odd)::after { left: auto; right: -7px; }
+  /* even entries: right of the rail */
+  #life .tl.life:nth-of-type(even) {
+    margin-left: 50%; padding-left: 40px; padding-right: 0;
+  }
+  #life .tl.life:nth-of-type(even)::before { left: -1px; }
+  #life .tl.life:nth-of-type(even)::after { left: -7px; }
 }
 
 .preview img { object-position: top center; }
@@ -307,7 +340,7 @@ footer { border-top: 1px solid var(--line); padding-top: 24px; display: flex; fl
 }
 .folder-badge svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.3; }
 
-/* Album hover highlight */
+/* album hover highlight */
 .photo.folder {
   transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s ease;
 }
