@@ -129,7 +129,7 @@
   var current = -1;
 
   // life timeline: click a photo to open it (and its siblings in the same entry) in the lightbox
-  Array.prototype.forEach.call(document.querySelectorAll('.life-media img'), function (im) {
+  Array.prototype.forEach.call(document.querySelectorAll('.life-media:not(.multi) img'), function (im) {
     im.tabIndex = 0; im.setAttribute('role', 'button');
     function open() {
       var group = Array.prototype.slice.call(im.closest('.life-media').querySelectorAll('img'));
@@ -141,23 +141,28 @@
     });
   });
 
-  // life timeline: multi-video entries become one clickable tile
+  // life timeline: multi-media entries become one clickable tile
   Array.prototype.forEach.call(document.querySelectorAll('.life-media.multi'), function (box) {
     var vids = Array.prototype.slice.call(box.querySelectorAll('video'));
+    var imgs = Array.prototype.slice.call(box.querySelectorAll('img'));
+    var isVideo = vids.length > 0;
+    var els = isVideo ? vids : imgs;
     var title = box.closest('.tl').querySelector('h3').textContent;
     vids.forEach(function (v) { v.controls = false; });
     box.tabIndex = 0; box.setAttribute('role', 'button');
-    box.setAttribute('aria-label', 'Open ' + vids.length + ' videos: ' + title);
+    box.setAttribute('aria-label', 'Open ' + els.length + (isVideo ? ' videos: ' : ' photos: ') + title);
 
     var badge = document.createElement('span');
     badge.className = 'folder-badge'; badge.setAttribute('aria-hidden', 'true');
-    badge.textContent = vids.length + ' videos';
+    badge.textContent = els.length + (isVideo ? ' videos' : ' photos');
     box.appendChild(badge);
 
     function open() {
-      var items = vids.map(function (v, i) {
-        return { src: v.querySelector('source').getAttribute('src'), video: true,
-                 caption: title + ' (' + (i + 1) + '/' + vids.length + ')' };
+      var items = els.map(function (el, i) {
+        var caption = title + ' (' + (i + 1) + '/' + els.length + ')';
+        return isVideo
+          ? { src: el.querySelector('source').getAttribute('src'), video: true, caption: caption }
+          : { src: el.getAttribute('src'), caption: caption };
       });
       openSet(items, 0, '', box);
     }
